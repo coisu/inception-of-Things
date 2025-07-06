@@ -1,0 +1,54 @@
+# Vagrantfile
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  # 신뢰도 높은 bento/debian-11 박스를 사용하여 Guest Additions 문제를 해결합니다.
+  config.vm.box = "bento/debian-11"
+
+  # --- 서버 노드 설정 ---
+  config.vm.define "jischoiS" do |server|
+    server.vm.hostname = "jischoiS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+
+    server.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+    end
+
+    # K3s 컨트롤러(서버) 설치 스크립트
+    # 원래의 간단한 공유 폴더 방식으로 돌아갑니다.
+    server.vm.provision "shell", inline: <<-SHELL
+      echo "--- K3s server node installation started ---"
+      export INSTALL_K3S_EXEC="--write-kubeconfig-mode=644 --bind-address=192.168.56.110 --node-ip=192.168.56.110"
+      curl -sfL https://get.k3s.io | sh -
+      echo "--- K3s server node installation completed ---"
+      # 워커 노드가 접속할 때 필요한 토큰을 공유 폴더에 저장합니다.
+      cp /var/lib/rancher/k3s/server/node-token /vagrant/node-token
+    SHELL
+  end
+
+  # --- 워커 노드 설정 ---
+  config.vm.define "jischoiSW" do |worker|
+    worker.vm.hostname = "jischoiSW"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+
+    worker.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+    end
+    
+    # K3s 에이전트(워커) 설치 스크립트
+    worker.vm.provision "shell", inline: <<-SHELL
+      echo "--- K3s worker node installation started ---"
+      # 서버가 토큰 파일을 생성할 때까지 최대 15초간 대기합니다.
+      while [ ! -f /vagrant/node-token ]; do echo "Waiting for node-token..."; sleep 1; done
+      export INSTALL_K3S_EXEC="--node-ip=192.168.56.111"
+      export K3S_URL="https://192.168.56.110:6443"
+      export K3S_TOKEN=$(cat /vagrant/node-token)
+      curl -sfL https://get.k3s.io | sh -
+      echo "--- K3s worker node installation completed ---"
+    SHELL
+  end
+end
