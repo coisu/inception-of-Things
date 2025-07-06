@@ -72,18 +72,22 @@ Vagrant works just like that:
 - This is best understood with the "House vs. Apartment" analogy.
 
     1. Vagrant is like building a single-family house.
+
     > Vagrant uses a hypervisor like VirtualBox to create a complete, self-contained virtual machine (VM). This is a full-fledged computer with its own guest operating system (OS), kernel, CPU, memory, and network interfaces.
 
     - Complete Isolation: The house is entirely separate from its neighbors. A VM is fully isolated from the host machine and other VMs.
     - Heavy on Resources: Building a house is a major undertaking. A VM consumes significant resources, including gigabytes (GB) of disk space and a large amount of RAM. It takes several minutes to boot up.
     - Goal: The goal is to reproduce an entire system environment, including the specific operating system and its configuration.
 
+
     2. Docker is like moving into an apartment unit.
+
     > A Docker container does not run its own full OS. Instead, it runs as an isolated process on the host machine's OS, sharing the host's kernel.
     
     - Shared Resources: The apartment is a private space within a larger building. A container is an isolated space for your application, but it shares the building's foundation and utilities (the host OS kernel) with other containers.
     - Lightweight and Fast: Moving into an apartment is much quicker than building a house. Because a container doesn't need to boot an OS, it is extremely lightweight (often measured in megabytes, MB) and can start in seconds.
     - Goal: The goal is to isolate an individual application and only the libraries and dependencies it needs to run.
+
 
     | Feature | Vagrant (Virtual Machine) | Docker (Container) |
     | :--- | :--- | :--- |
