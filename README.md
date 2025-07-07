@@ -85,18 +85,18 @@ Vagrant works just like that:
     A VM (like VirtualBox) is the most fundamental unit of virtualization. It provides the raw materials to build a computer: virtual land (disk space), virtual utilities (CPU, memory), and a foundation upon which an operating system can be installed. By itself, it's just an empty plot with materials waiting to be used.
 
     - **Vagrant - "The Blueprint and Construction Company"**
-        >Vagrant is the tool that directs how to build a house with those materials.
+    Vagrant is the tool that directs how to build a house with those materials.
 
         - The Blueprint (Vagrantfile): This file specifies, "On this plot of land (the VM), build a house with a Debian 11 OS, give it the IP address 192.168.56.110, and furnish it with K3s."
 
         - The Construction Company (vagrant command): When you run vagrant up, Vagrant reads the blueprint and instructs VirtualBox to automatically build the house (the VM) exactly as specified.
 
     - **Docker - "The Prefabricated Container House"**
-        >Docker takes a different approach. Instead of building from scratch, it delivers a complete, prefabricated house built in a factory.
+    Docker takes a different approach. Instead of building from scratch, it delivers a complete, prefabricated house built in a factory.
 
-    - Self-Contained: This container house already includes all the necessary furniture and appliances (the application and its libraries).
+        - Self-Contained: This container house already includes all the necessary furniture and appliances (the application and its libraries).
 
-    - Shared Infrastructure: However, the container house doesn't have its own land or utilities (OS kernel). It's designed to be placed in an existing community (the Host OS) and share its infrastructure. This makes it incredibly lightweight and fast to set up.
+        - Shared Infrastructure: However, the container house doesn't have its own land or utilities (OS kernel). It's designed to be placed in an existing community (the Host OS) and share its infrastructure. This makes it incredibly lightweight and fast to set up.
 
     **2. Comparison Table**
 
