@@ -1,0 +1,91 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: main-ingress
+  annotations:
+    # Traefik에 이 규칙이 가장 낮은 우선순위를 갖도록 명시하여 default처럼 작동하게 합니다.
+    traefik.ingress.kubernetes.io/router.priority: "1"
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: "app1.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-one-svc
+            port:
+              number: 80
+  - host: "app2.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-two-svc
+            port:
+              number: 80
+  # 호스트가 없는 규칙을 만들고, 우선순위를 낮춰 기본값처럼 작동하게 합니다.
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-three-svc
+            port:
+              number: 80
+
+
+
+
+# The official Kubernetes syntax
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: main-ingress
+#   annotations:
+#     ingress.kubernetes.io/ssl-redirect: "false"
+# spec:
+#   # This is the official way to define a default route
+#   defaultBackend:
+#     service:
+#       name: app-three-svc
+#       port:
+#         number: 80
+#   rules:
+#   - host: "app1.com"
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: app-one-svc
+#             port:
+#               number: 80
+#   - host: "app2.com"
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: app-two-svc
+#             port:
+#               number: 80
+
+
+# Root Cause Analysis: Why the Official Syntax Failed
+# The root cause was a bug or compatibility issue in the specific version of the Traefik Ingress controller that is built into K3s. This prevented it from correctly understanding the official defaultBackend configuration.
+
+# The ingress.yaml file using defaultBackend was following the official Kubernetes standard.
+
+# The problem was a component in K3s (Traefik): The specific version of the 'Traefik' router program that K3s uses internally failed to properly handle the official defaultBackend directive. As a result, when it received a request that didn't match any rules, it didn't know where to send it and returned a 404 Not Found error.
+
+# When I temporarily changed the configuration to route app3.com to the app3 service. It worked perfectly. This confirmed that the app3 application and service were not the problem; the issue was isolated to how defaultBackend was being handled.
+
+# In conclusion, the issue was caused by a subtle bug in the software you were using. The final solution was to use a different method (a low-priority, host-less rule) to achieve the same effect while working around the bug.

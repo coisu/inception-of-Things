@@ -109,3 +109,49 @@ Vagrant works just like that:
     kubectl get nodes -o wide
     ```
 
+----
+
+## TEST Commands
+
+### P1
+
+    ```bash
+    vagrant delete -f
+    vagrant up
+    vagrant status
+
+    vagrant plugin install vagrant-vbguest
+    vagrant destroy -f
+    vagrant up [machin name]
+    vagrant ssh jischoiS
+    ```
+    ```shell
+    kubectl get nodes -o wide
+    kubectl get pods -n kube-system
+    ```
+
+### P2
+
+    ```bash
+    vagrant up
+    vagrant ssh jischoiS
+    kubectl apply -f /vagrant/confs/
+    kubectl get pods
+    kubectl get svc
+    kubectl get ingress
+    ```
+**Routing Test**
+    ```shell
+    curl -H "Host: app1.com" http://127.0.0.1
+    curl -H "Host: app2.com" http://127.0.0.1
+    curl http://127.0.0.1
+    ```
+**debugging**
+
+    ```bash
+    kubectl delete ingress main-ingress
+    kubectl apply -f /vagrant/confs/ingress.yaml
+    kubectl get pods -n kube-system
+    kubectl delete pod [traefik-pod-name] -n kube-system
+    kubectl run debug-pod ...
+    ```
