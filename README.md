@@ -77,9 +77,9 @@ Vagrant works just like that:
 
     
 #### The Key Advantages of Vagrant
-    - Reproducibility (Solving the "It works on my machine" problem)
-    - Consistency (The same environment, anywhere)
-    - Automation & Portability (Simplicity and Convenience)
+- Reproducibility (Solving the "It works on my machine" problem)
+- Consistency (The same environment, anywhere)
+- Automation & Portability (Simplicity and Convenience)
 
 ---
 
