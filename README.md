@@ -87,16 +87,16 @@ Vagrant works just like that:
     - **Vagrant - "The Blueprint and Construction Company"**
     >Vagrant is the tool that directs how to build a house with those materials.
 
-        - The Blueprint (Vagrantfile): This file specifies, "On this plot of land (the VM), build a house with a Debian 11 OS, give it the IP address 192.168.56.110, and furnish it with K3s."
+    - The Blueprint (Vagrantfile): This file specifies, "On this plot of land (the VM), build a house with a Debian 11 OS, give it the IP address 192.168.56.110, and furnish it with K3s."
 
-        - The Construction Company (vagrant command): When you run vagrant up, Vagrant reads the blueprint and instructs VirtualBox to automatically build the house (the VM) exactly as specified.
+    - The Construction Company (vagrant command): When you run vagrant up, Vagrant reads the blueprint and instructs VirtualBox to automatically build the house (the VM) exactly as specified.
 
     - **Docker - "The Prefabricated Container House"**
     >Docker takes a different approach. Instead of building from scratch, it delivers a complete, prefabricated house built in a factory.
 
-        - Self-Contained: This container house already includes all the necessary furniture and appliances (the application and its libraries).
+    - Self-Contained: This container house already includes all the necessary furniture and appliances (the application and its libraries).
 
-        - Shared Infrastructure: However, the container house doesn't have its own land or utilities (OS kernel). It's designed to be placed in an existing community (the Host OS) and share its infrastructure. This makes it incredibly lightweight and fast to set up.
+    - Shared Infrastructure: However, the container house doesn't have its own land or utilities (OS kernel). It's designed to be placed in an existing community (the Host OS) and share its infrastructure. This makes it incredibly lightweight and fast to set up.
 
     **2. Comparison Table**
 
@@ -110,19 +110,19 @@ Vagrant works just like that:
 
     **3. Relationship**
 
-    1. Vagrant & VM: "The Director and The Engine"
+    - Vagrant & VM: "The Director and The Engine"
 
         - Vagrant cannot create a VM on its own; it needs a provider like VirtualBox.
 
         - Vagrant directs VirtualBox on what kind of VM to build, and VirtualBox executes the actual creation. Vagrant is the manager; the VM provider is the engine.
 
-    2. VM vs. Docker: "Alternatives or a Combination"
+    - VM vs. Docker: "Alternatives or a Combination"
 
         - A VM virtualizes a whole computer (hardware), while Docker virtualizes just an application (software). They are different approaches to isolation.
 
         - However, they can be used together. For example, you might run Docker inside a VM for an extra layer of security and isolation.
 
-    3. Vagrant & Docker: "Different Kinds of Blueprints"
+    - Vagrant & Docker: "Different Kinds of Blueprints"
 
         - Vagrant can also use Docker as a provider. In this case, the `Vagrantfile` blueprint would instruct Docker to run a container with a specific configuration, combining the simple workflow of Vagrant with the lightweight nature of Docker.
 
