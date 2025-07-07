@@ -28,7 +28,26 @@ This project aims to introduce you to Kubernetes from a developer's perspective.
 
 - `kubectl delete`: To remove resources from the cluster.
 
+### Core Kubernetes Objects (The Actors and Staff)
+- about Part 2:
 
+    - Deployment (The Manager):
+
+        - Role: It is responsible for managing how many instances (Pods) of an application should be running. It also ensures that if a Pod fails, a new one is automatically created to replace it.
+
+        - Practice: how to use the `replicas: 3` setting for `app2` to ensure that three identical instances of the application are always running.
+
+    - Service (The Internal Guide):
+
+        - Role: It groups a set of running Pods together and gives that group a single, stable internal IP address. It acts as an internal guide, allowing other applications within the cluster to easily find and communicate with this group.
+
+        - Practice: Created `app-one-svc`, `app-two-svc`, and `app-three-svc` to establish stable internal communication routes for each Deployment.
+
+    - Ingress (The Front Desk):
+
+        - Role: It is the single gateway that connects requests from the outside world to services inside the cluster. It defines routing rules based on the incoming address (Host), essentially saying, "Requests for app1.com go to Service A, and requests for `app2.com` go to Service B."
+
+        - Practice: This was the core of Part 2. How to route traffic to three different services based on the `Host` header of the incoming request.
 
 ## What is K3s?
 - a lightweight, certified version of Kubernetes. The creators took the full, complex Kubernetes and removed non-essential parts to make it much smaller, faster, and easier to install and use, especially for smaller environments like the one in this project.
