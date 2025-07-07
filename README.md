@@ -1,6 +1,7 @@
 # inception-of-Things
 This project aims to introduce you to Kubernetes from a developer's perspective. You will have to set up small clusters and discover the mechanics of continuous integration. At the end of this project, will be able to set up a working cluster in Docker and have a usable continuous integration pipeline for applications.
 
+---
 
 # Before start
 
@@ -49,6 +50,8 @@ This project aims to introduce you to Kubernetes from a developer's perspective.
 
         - Practice: This was the core of Part 2. How to route traffic to three different services based on the `Host` header of the incoming request.
 
+---
+
 ## What is K3s?
 - a lightweight, certified version of Kubernetes. The creators took the full, complex Kubernetes and removed non-essential parts to make it much smaller, faster, and easier to install and use, especially for smaller environments like the one in this project.
 
@@ -58,6 +61,8 @@ This project aims to introduce you to Kubernetes from a developer's perspective.
         - Master / Control-Plane Node (jischoiS): This is the "brain" or the "manager" of the cluster. It makes all the decisions: where to run applications, how to respond to failures, and it keeps track of the state of the entire system. In this setup, this is the controller mode machine.
 
         - Worker / Agent Node (jischoiSW): These are the "muscles" of the cluster. They do the actual work of running the applications (containers) as instructed by the master node. In this setup, this is the agent mode machine.
+
+---
 
 ## What is Vagrant?
 - a tool for building and managing virtual machine environments in a single, automated workflow.
@@ -76,77 +81,82 @@ Vagrant works just like that:
     - Consistency (The same environment, anywhere)
     - Automation & Portability (Simplicity and Convenience)
 
+---
+
+
 ## Vagrant, VM, & Docker: Comparison and Relationship
 - While all three technologies aim to solve the "it works on my machine" problem, they do so at different levels and scales. The relationship is best understood with a house-building analogy.
 
-    **1. The Role of Each Technology**
+#### 1. The Role of Each Technology
     
-    - **Virtual Machine (VM) - "The Land and Building Materials"**
+- **Virtual Machine (VM) - "The Land and Building Materials"**
     
     A VM (like VirtualBox) is the most fundamental unit of virtualization. It provides the raw materials to build a computer: virtual land (disk space), virtual utilities (CPU, memory), and a foundation upon which an operating system can be installed. By itself, it's just an empty plot with materials waiting to be used.
 
-    - **Vagrant - "The Blueprint and Construction Company"**
+- **Vagrant - "The Blueprint and Construction Company"**
     
     Vagrant is the tool that directs how to build a house with those materials.
 
-        - The Blueprint (Vagrantfile): This file specifies, "On this plot of land (the VM), build a house with a Debian 11 OS, give it the IP address 192.168.56.110, and furnish it with K3s."
+    - The Blueprint (Vagrantfile): This file specifies, "On this plot of land (the VM), build a house with a Debian 11 OS, give it the IP address 192.168.56.110, and furnish it with K3s."
 
-        - The Construction Company (vagrant command): When you run vagrant up, Vagrant reads the blueprint and instructs VirtualBox to automatically build the house (the VM) exactly as specified.
+    - The Construction Company (vagrant command): When you run vagrant up, Vagrant reads the blueprint and instructs VirtualBox to automatically build the house (the VM) exactly as specified.
 
-    - **Docker - "The Prefabricated Container House"**
+- **Docker - "The Prefabricated Container House"**
     
     Docker takes a different approach. Instead of building from scratch, it delivers a complete, prefabricated house built in a factory.
 
-        - Self-Contained: This container house already includes all the necessary furniture and appliances (the application and its libraries).
+    - Self-Contained: This container house already includes all the necessary furniture and appliances (the application and its libraries).
 
-        - Shared Infrastructure: However, the container house doesn't have its own land or utilities (OS kernel). It's designed to be placed in an existing community (the Host OS) and share its infrastructure. This makes it incredibly lightweight and fast to set up.
+    - Shared Infrastructure: However, the container house doesn't have its own land or utilities (OS kernel). It's designed to be placed in an existing community (the Host OS) and share its infrastructure. This makes it incredibly lightweight and fast to set up.
 
-    **2. Comparison Table**
+#### 2. Comparison Table
 
-    | Feature | Virtual Machine (VM) | Vagrant | Docker (Container) |
-    | :--- | :--- | :--- | :--- |
-    | **Core Role** | **Hardware Virtualization** | **Environment Automation** | **OS Virtualization** |
-    | **End Product** | An empty virtual computer | A fully configured virtual computer | An isolated application runtime |
-    | **Isolation Level** | OS Level (Full Isolation) | (Depends on VM) | Application Level (Shared Kernel) |
-    | **Size / Speed** | Large & Slow (GBs, minutes to boot) | (Depends on VM) | Small & Fast (MBs, seconds to start) |
-    | **Primary Purpose** | Replicating a **system environment** | Managing dev **environments as code** | Packaging & deploying **applications** |
+| Feature | Virtual Machine (VM) | Vagrant | Docker (Container) |
+| :--- | :--- | :--- | :--- |
+| **Core Role** | **Hardware Virtualization** | **Environment Automation** | **OS Virtualization** |
+| **End Product** | An empty virtual computer | A fully configured virtual computer | An isolated application runtime |
+| **Isolation Level** | OS Level (Full Isolation) | (Depends on VM) | Application Level (Shared Kernel) |
+| **Size / Speed** | Large & Slow (GBs, minutes to boot) | (Depends on VM) | Small & Fast (MBs, seconds to start) |
+| **Primary Purpose** | Replicating a **system environment** | Managing dev **environments as code** | Packaging & deploying **applications** |
 
-    **3. Relationship**
+#### 3. Relationship
 
-    - Vagrant & VM: "The Director and The Engine"
+- Vagrant & VM: "The Director and The Engine"
 
-        - Vagrant cannot create a VM on its own; it needs a provider like VirtualBox.
+    - Vagrant cannot create a VM on its own; it needs a provider like VirtualBox.
 
-        - Vagrant directs VirtualBox on what kind of VM to build, and VirtualBox executes the actual creation. Vagrant is the manager; the VM provider is the engine.
+    - Vagrant directs VirtualBox on what kind of VM to build, and VirtualBox executes the actual creation. Vagrant is the manager; the VM provider is the engine.
 
-    - VM vs. Docker: "Alternatives or a Combination"
+- VM vs. Docker: "Alternatives or a Combination"
 
-        - A VM virtualizes a whole computer (hardware), while Docker virtualizes just an application (software). They are different approaches to isolation.
+    - A VM virtualizes a whole computer (hardware), while Docker virtualizes just an application (software). They are different approaches to isolation.
 
-        - However, they can be used together. For example, you might run Docker inside a VM for an extra layer of security and isolation.
+    - However, they can be used together. For example, you might run Docker inside a VM for an extra layer of security and isolation.
 
-    - Vagrant & Docker: "Different Kinds of Blueprints"
+- Vagrant & Docker: "Different Kinds of Blueprints"
 
-        - Vagrant can also use Docker as a provider. In this case, the `Vagrantfile` blueprint would instruct Docker to run a container with a specific configuration, combining the simple workflow of Vagrant with the lightweight nature of Docker.
+    - Vagrant can also use Docker as a provider. In this case, the `Vagrantfile` blueprint would instruct Docker to run a container with a specific configuration, combining the simple workflow of Vagrant with the lightweight nature of Docker.
+
+---
 
 ## In this Project
     
 #### Part 1 and Part 2:
-    We used Vagrant to create the computers (virtual machines) that run Kubernetes, and then installed K3s (a lightweight Kubernetes) inside them.
+We used Vagrant to create the computers (virtual machines) that run Kubernetes, and then installed K3s (a lightweight Kubernetes) inside them.
 
-    - Vagrant
-        - Acted as the automated builder, reading the `Vagrantfile` blueprint to construct the virtual machines.
+- Vagrant
+    - Acted as the automated builder, reading the `Vagrantfile` blueprint to construct the virtual machines.
 
-    - K3s (Lightweight Kubernetes)
-        - The actual container management software that was installed inside the computers built by Vagrant.
+- K3s (Lightweight Kubernetes)
+    - The actual container management software that was installed inside the computers built by Vagrant.
 
-    VirtualBox
-        - The underlying engine or hypervisor that actually ran the virtual machines as instructed by Vagrant.
+- VirtualBox
+    - The underlying engine or hypervisor that actually ran the virtual machines as instructed by Vagrant.
 
-    YAML files
-        - The declarative blueprints that told Kubernetes what the final state should look like (e.g., which applications to run and how to network them).
+- YAML files
+    - The declarative blueprints that told Kubernetes what the final state should look like (e.g., which applications to run and how to network them).
 
-    Kubernetes
+- Kubernetes
     - The official name and standard concept for the container management system that K3s implements.
 
 ----
