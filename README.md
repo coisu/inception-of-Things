@@ -1,4 +1,4 @@
-# inception-of-Things
+2# inception-of-Things
 This project aims to introduce you to Kubernetes from a developer's perspective. You will have to set up small clusters and discover the mechanics of continuous integration. At the end of this project, will be able to set up a working cluster in Docker and have a usable continuous integration pipeline for applications.
 
 ---
@@ -165,10 +165,10 @@ We used Vagrant to create the computers (virtual machines) that run Kubernetes, 
 > 건설사 (Vagrant) → 건물 2채 (VM) → 관리사무소 (K3s)
 
 **Part 2.**: K3s and three simple applications
-> 건설사 (Vagrant) → 건물 1채 (VM) → 관리사무소 (K3s) → [Manual apply yaml] → 가구 (애플리케이션)
+> 건설사 (Vagrant) → 건물 1채 (VM) → 관리사무소 (K3s) → 가구 (apps)
 
 **Part 3.**: K3d and Argo CD
-> 건설사 (Docker) → 건물 (Kubernetes) → 관리사무소 (Kubernetes) → 인테리어 업체 (Argo CD) 🔃 [자동 재배치] 🔃 가구 (애플리케이션)
+> 건설사 (Docker) → 건물 (Kubernetes) → 관리사무소 (Kubernetes) → 인테리어 업체 (Argo CD) [automation] 가구 (apps)
 
 - Vagrant
     - Acted as the automated builder, reading the `Vagrantfile` blueprint to construct the virtual machines.
