@@ -216,29 +216,32 @@ We used Vagrant to create the computers (virtual machines) that run Kubernetes, 
     kubectl get pods -n kube-system
     ```
 
-### P2
 
-    ```bash
-    vagrant up
-    vagrant ssh jischoiS
-    kubectl apply -f /vagrant/confs/
-    kubectl get pods
-    kubectl get svc
-    kubectl get ingress
-    kubectl get all -n kube-system
-    ```
+### P2
+- I used ModHeader Chrome extension to access with Host(app1, app2)
+
+```bash
+vagrant up
+vagrant ssh jischoiS
+kubectl apply -f /vagrant/confs/
+kubectl get pods
+kubectl get svc
+kubectl get ingress
+kubectl get all -n kube-system
+```
 **Routing Test**
-    ```shell
-    curl -H "Host: app1.com" 192.168.56.110
-    curl -H "Host: app2.com" 192.168.56.110
-    curl 192.168.56.110
-    ```
+
+```shell
+curl -H "Host: app1.com" 192.168.56.110
+curl -H "Host: app2.com" 192.168.56.110
+curl 192.168.56.110
+```
 **debugging**
 
-    ```bash
-    kubectl delete ingress main-ingress
-    kubectl apply -f /vagrant/confs/ingress.yaml
-    kubectl get pods -n kube-system
-    kubectl delete pod [traefik-pod-name] -n kube-system
-    kubectl run debug-pod ...
-    ```
+```bash
+kubectl delete ingress main-ingress
+kubectl apply -f /vagrant/confs/ingress.yaml
+kubectl get pods -n kube-system
+kubectl delete pod [traefik-pod-name] -n kube-system
+kubectl run debug-pod ...
+```
