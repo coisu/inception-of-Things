@@ -12,6 +12,22 @@ This project aims to introduce you to Kubernetes from a developer's perspective.
 
     - Resource Management: It treats a group of computers (a cluster) as one giant resource pool of CPU and memory, and it intelligently decides where to run your applications.
 
+### Official info
+
+1. Official webpage
+>  kubernetes.io/docs/
+
+- `Concepts` > `Services, Load Balancing, and Networking` > `Ingress`
+
+https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/
+
+2. from terminal
+```bash
+kubectl explain [obj-name].[field-name].[sub-field-name]...
+
+kubectl explain ingress.spec.rules
+```
+
 #### How to control Kubernetes? — kubectl
 - `kubectl` is the official command-line tool (CLI) for communicating with a Kubernetes cluster. Think of it as the universal remote control for your cluster.
 
@@ -141,8 +157,18 @@ Vagrant works just like that:
 
 ## In this Project
     
-#### Part 1 and Part 2:
+#### Part 1, Part 2 and Part 3:
 We used Vagrant to create the computers (virtual machines) that run Kubernetes, and then installed K3s (a lightweight Kubernetes) inside them.
+
+
+**Part 1.**: K3s and Vagrant
+> 건설사 (Vagrant) → 건물 2채 (VM) → 관리사무소 (K3s)
+
+**Part 2.**: K3s and three simple applications
+> 건설사 (Vagrant) → 건물 1채 (VM) → 관리사무소 (K3s) → [Manual apply yaml] → 가구 (애플리케이션)
+
+**Part 3.**: K3d and Argo CD
+> 건설사 (Docker) → 건물 (Kubernetes) → 관리사무소 (Kubernetes) → 인테리어 업체 (Argo CD) 🔃 [자동 재배치] 🔃 가구 (애플리케이션)
 
 - Vagrant
     - Acted as the automated builder, reading the `Vagrantfile` blueprint to construct the virtual machines.
@@ -182,7 +208,7 @@ We used Vagrant to create the computers (virtual machines) that run Kubernetes, 
 
     vagrant plugin install vagrant-vbguest
     vagrant destroy -f
-    vagrant up [machin name]
+    vagrant up [machine-name]
     vagrant ssh jischoiS
     ```
     ```shell
@@ -199,12 +225,13 @@ We used Vagrant to create the computers (virtual machines) that run Kubernetes, 
     kubectl get pods
     kubectl get svc
     kubectl get ingress
+    kubectl get all -n kube-system
     ```
 **Routing Test**
     ```shell
-    curl -H "Host: app1.com" http://127.0.0.1
-    curl -H "Host: app2.com" http://127.0.0.1
-    curl http://127.0.0.1
+    curl -H "Host: app1.com" 192.168.56.110
+    curl -H "Host: app2.com" 192.168.56.110
+    curl 192.168.56.110
     ```
 **debugging**
 
