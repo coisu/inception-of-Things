@@ -213,6 +213,7 @@ We used Vagrant to create the computers (virtual machines) that run Kubernetes, 
     ```
     ```shell
     kubectl get nodes -o wide
+    ip a show eth1
     kubectl get pods -n kube-system
     ```
 
