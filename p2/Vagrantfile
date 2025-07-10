@@ -19,6 +19,13 @@ Vagrant.configure("2") do |config|
         vb.cpus = "1"
     end
 
+    # on my window pc had a problem of installing kernel
+    server.vm.provision "shell", inline: <<-SHELL
+      echo "--- Updating system and installing kernel headers ---"
+      sudo apt-get update -y
+      sudo apt-get install -y linux-headers-amd64
+    SHELL
+
     # K3s controller installation
     server.vm.provision "shell", inline: <<-SHELL
         echo "--- K3s server node installation started ---"
@@ -26,7 +33,7 @@ Vagrant.configure("2") do |config|
         curl -sfL https://get.k3s.io | sh -
         echo "--- K3s server node installation completed ---"
     SHELL
-    
+
     # Deploy apps with script
     # server.vm.provision "shell", path: "scripts/deploy.sh"
     server.vm.provision "shell", inline: "sh /vagrant/scripts/deploy.sh"
