@@ -68,7 +68,7 @@ kubectl explain ingress.spec.rules
 
 ---
 
-## What is K3s?
+## What is K3s? (Part 1)
 - a lightweight, certified version of Kubernetes. The creators took the full, complex Kubernetes and removed non-essential parts to make it much smaller, faster, and easier to install and use, especially for smaller environments like the one in this project.
 
     ### A K3s Cluster:
@@ -77,6 +77,29 @@ kubectl explain ingress.spec.rules
         - Master / Control-Plane Node (jischoiS): This is the "brain" or the "manager" of the cluster. It makes all the decisions: where to run applications, how to respond to failures, and it keeps track of the state of the entire system. In this setup, this is the controller mode machine.
 
         - Worker / Agent Node (jischoiSW): These are the "muscles" of the cluster. They do the actual work of running the applications (containers) as instructed by the master node. In this setup, this is the agent mode machine.
+
+---
+
+## What is K3d? (Part 3)
+- a helper or a wrapper tool specifically for k3s. The "d" in k3d stands for Docker.
+
+    - k3d's job is to run k3s inside Docker containers.
+
+    - It provides a simple command-line interface (CLI) to quickly create, manage, and delete single or multi-node k3s clusters.
+
+    - With k3d, each node of your Kubernetes cluster (whether it's a server or an agent/worker) is just a Docker container on your local machine.
+
+    - This is extremely convenient for local development because you don't need to set up separate virtual machines. You just need Docker installed.
+
+
+
+```
+k3d cluster create my-cluster --port "8888:80@loadbalancer"
+k3d cluster delete my-cluster
+
+
+
+```
 
 ---
 
