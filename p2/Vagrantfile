@@ -19,12 +19,12 @@ Vagrant.configure("2") do |config|
         vb.cpus = "1"
     end
 
-    # on my window pc had a problem of installing kernel
-    server.vm.provision "shell", inline: <<-SHELL
-      echo "--- Updating system and installing kernel headers ---"
-      sudo apt-get update -y
-      sudo apt-get install -y linux-headers-amd64
-    SHELL
+    # # on my window pc had a problem of installing kernel
+    # server.vm.provision "shell", inline: <<-SHELL
+    #   echo "--- Updating system and installing kernel headers ---"
+    #   sudo apt-get update -y
+    #   sudo apt-get install -y linux-headers-amd64
+    # SHELL
 
     # K3s controller installation
     server.vm.provision "shell", inline: <<-SHELL
