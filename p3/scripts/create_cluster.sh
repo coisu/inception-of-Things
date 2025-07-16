@@ -1,0 +1,17 @@
+#!/bin/bash
+
+CLUSTER_NAME="my-cluster"
+
+echo "--- Creating K3d cluster: $CLUSTER_NAME ---"
+k3d cluster create $CLUSTER_NAME --api-port 6443 -p "8888:80@loadbalancer" --agents 1
+
+echo "--- Waiting for cluster to be ready... ---"
+sleep 15
+
+# Create dev, argocd namespace [cite: 460]
+echo "--- Creating namespaces: dev and argocd ---"
+kubectl create namespace dev [cite: 462]
+kubectl create namespace argocd [cite: 461]
+
+echo "--- Cluster and namespaces are ready ---"
+kubectl get ns
