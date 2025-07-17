@@ -10,8 +10,8 @@ sleep 15
 
 # Create dev, argocd namespace [cite: 460]
 echo "--- Creating namespaces: dev and argocd ---"
-kubectl create namespace dev [cite: 462]
-kubectl create namespace argocd [cite: 461]
+kubectl create namespace dev
+kubectl create namespace argocd
 
 echo "--- Cluster and namespaces are ready ---"
 kubectl get ns
