@@ -269,3 +269,16 @@ kubectl get pods -n kube-system
 kubectl delete pod [traefik-pod-name] -n kube-system
 kubectl run debug-pod ...
 ```
+
+
+
+
+### bonus init
+
+```bash
+pkill -f 'kubectl port-forward'
+helm uninstall gitlab -n gitlab || true
+kubectl delete namespace gitlab || true
+rm -rf temp_buthor
+
+```

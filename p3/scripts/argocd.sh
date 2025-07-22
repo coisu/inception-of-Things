@@ -21,3 +21,5 @@ echo "Argo CD UI available at: https://localhost:8080"
 echo "Username: admin"
 echo "Password: $ADMIN_PASSWORD"
 echo "-------------------------------------------------"
+
+kubectl port-forward svc/argocd-server -n argocd 8080:443

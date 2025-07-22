@@ -4,9 +4,9 @@ metadata:
   name: wil-app
   namespace: argocd
 spec:
-  project: default
+  project: development
   source:
-    repoURL: http://gitlab-webservice-default.gitlab.svc:8181/root/buthor.git
+    repoURL: http://gitlab.k3d.gitlab.com/root/buthor.git
     targetRevision: HEAD
     path: manifests
   destination:

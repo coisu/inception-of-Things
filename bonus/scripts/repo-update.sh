@@ -1,28 +1,17 @@
 #!/bin/bash
 set -e
 
-# GitLab 비밀번호 가져오기
-GITLAB_PASS=$(kubectl get secret gitlab-gitlab-initial-root-password -n gitlab -o jsonpath="{.data.password}" | base64 --decode)
+# 클린업
+rm -rf temp_buthor
 
-# GitLab 인증파일 설정
-cat <<EOF > ~/.netrc
-machine gitlab.k3d.gitlab.com
-login root
-password $GITLAB_PASS
-EOF
-
-chmod 600 ~/.netrc
-
-# GitHub에서 클론
-git clone https://github.com/SavchenkoDV/buthor.git temp_buthor
+# GitLab에서 프로젝트 클론
+git clone http://localhost:8081/root/buthor.git temp_buthor
 cd temp_buthor
 
-# GitLab repo 등록 및 푸시
-git remote set-url origin http://gitlab.k3d.gitlab.com/root/buthor.git
-git push --mirror
+# 필요한 경우 파일 수정 등 작업...
 
 cd ..
 rm -rf temp_buthor
 
-# ArgoCD 배포 적용
-kubectl apply -f deploy.yaml
+# 보너스용 ArgoCD 배포
+kubectl apply -f ../confs/
