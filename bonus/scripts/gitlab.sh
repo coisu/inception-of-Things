@@ -13,6 +13,8 @@ if ! command -v helm &> /dev/null; then
   curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 fi
 
+helm repo add gitlab https://charts.gitlab.io || true
+helm repo update
 
 # install GitLab
 helm upgrade --install gitlab gitlab/gitlab \
@@ -36,4 +38,4 @@ echo -e "${RESET}"
 
 # port-forwarding 
 # kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080 >/dev/null 2>&1 &
-kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080
+kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8181

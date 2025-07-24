@@ -6,7 +6,7 @@ metadata:
 spec:
   project: development
   source:
-    repoURL: http://gitlab.k3d.gitlab.com/root/buthor.git
+    repoURL: http://gitlab-webservice-default.gitlab.svc:8080/root/buthor.git
     targetRevision: HEAD
     path: manifests
   destination:
