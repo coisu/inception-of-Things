@@ -9,7 +9,7 @@ mv kubectl ~/.local/bin/
 echo "--- kubectl installed ---"
 
 echo "--- Installing K3d ---"
-curl -Lo k3d "https://github.com/k3d-io/k3d/releases/download/v5.6.3/k3d-linux-amd64"
+curl -Lo k3d "https://github.com/k3d-io/k3d/releases/download/v5.6.2/k3d-linux-amd64"
 chmod +x k3d
 mv k3d ~/.local/bin/
 echo "--- K3d installed ---"

@@ -7,9 +7,8 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/st
 echo "--- Waiting for Argo CD server to be ready... ---"
 kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server -n argocd --timeout=300s
 
-# Port forwarding to access Argo CD UI(새 터미널에서 실행)
-echo "--- To access the Argo CD UI, run the following command in a new terminal: ---"
-echo "kubectl port-forward svc/argocd-server -n argocd 8080:443"
+# echo "--- To access the Argo CD UI, run the following command in a new terminal: ---"
+# echo "kubectl port-forward svc/argocd-server -n argocd 8080:443"
 # echo "--- Starting port-forwarding in the background... ---"
 # kubectl port-forward svc/argocd-server -n argocd 8080:443 &
 
@@ -22,4 +21,7 @@ echo "Username: admin"
 echo "Password: $ADMIN_PASSWORD"
 echo "-------------------------------------------------"
 
-kubectl port-forward svc/argocd-server -n argocd 8080:443 
+# kubectl port-forward svc/argocd-server -n argocd 8080:443 
+echo "--- Port frorwarding... ---"
+kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8080:443
+
