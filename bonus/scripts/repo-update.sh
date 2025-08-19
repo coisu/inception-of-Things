@@ -1,17 +1,21 @@
 #!/bin/bash
 set -e
 
-# 클린업
-rm -rf temp_buthor
+# --- Configuration ---
+ARGO_APP_FILE="../confs/deploy.yaml"
+NEW_REPO_URL="http://localhost:8081/root/buthor.git"
 
-# GitLab에서 프로젝트 클론
-git clone http://localhost:8081/root/buthor.git temp_buthor
-cd temp_buthor
+echo "--- Updating Argo CD application manifest ---"
+echo "Old repoURL:"
+grep "repoURL" "$ARGO_APP_FILE"
 
-# 필요한 경우 파일 수정 등 작업...
+# replacing
+sed -i.bak "s|repoURL:.*|repoURL: $NEW_REPO_URL|" "$ARGO_APP_FILE"
 
-cd ..
-rm -rf temp_buthor
+echo "New repoURL:"
+grep "repoURL" "$ARGO_APP_FILE"
 
-# 보너스용 ArgoCD 배포
-kubectl apply -f ../confs/
+echo "--- Applying updated configuration to the cluster ---"
+kubectl apply -f "$ARGO_APP_FILE"
+
+echo "Argo CD is now pointing to local GitLab repository!"

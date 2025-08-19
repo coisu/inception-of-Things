@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-# 색상 설정
 GREEN="\033[32m"
 RESET="\033[0m"
 
@@ -38,4 +37,4 @@ echo -e "${RESET}"
 
 # port-forwarding 
 # kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080 >/dev/null 2>&1 &
-kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8181
+kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8180
