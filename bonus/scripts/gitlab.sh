@@ -37,4 +37,5 @@ echo -e "${RESET}"
 
 # port-forwarding 
 # kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080 >/dev/null 2>&1 &
-kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080
+# kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080
+kubectl port-forward svc/gitlab-webservice-default -n gitlab 8081:8080 --address 0.0.0.0 & echo $! > /tmp/gitlab_pf.pid

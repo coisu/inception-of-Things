@@ -5,7 +5,7 @@ echo "--- Installing Argo CD into 'argocd' namespace ---"
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 echo "--- Waiting for Argo CD server to be ready... ---"
-kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server -n argocd --timeout=300s
+kubectl wait --for=condition=Ready pod -l app.kubernetes.io/name=argocd-server -n argocd --timeout=300s
 
 # echo "--- To access the Argo CD UI, run the following command in a new terminal: ---"
 # echo "kubectl port-forward svc/argocd-server -n argocd 8080:443"

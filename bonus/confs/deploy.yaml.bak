@@ -6,7 +6,7 @@ metadata:
 spec:
   project: development
   source:
-    repoURL: http://localhost:8081/root/buthor.git
+    repoURL: http://gitlab-webservice-default.gitlab.svc.cluster.local/root/buthor.git
     # repoURL: http://localhost:8081/root/buthor.git
     targetRevision: HEAD
     path: manifests
