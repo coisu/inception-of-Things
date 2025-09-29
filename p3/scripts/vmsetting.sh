@@ -80,6 +80,9 @@ VBoxManage modifyvm "$VM" --boot1 dvd --boot2 disk
 echo "[STEP] VM booting... "
 VBoxManage startvm "$VM" --type gui
 
+# reset ssh-key
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[127.0.0.1]:${SSH_PORT}" || true
+
 cat <<EOF
 
 [process left]
@@ -88,13 +91,26 @@ cat <<EOF
    - set user id and pw
 
 2) when installion done and reboot, run commend below to seperate ISO
-   VBoxManage storageattach "$VM" --storagectl "SATA" --port 1 --device 0 --type dvddrive --medium none
+  VBoxManage storageattach "$VM" --storagectl "SATA" --port 1 --device 0 --type dvddrive --medium none
 
-3) SSH conection test on local(host):
+3) ssh -p 2222 jischoi@127.0.0.1 "mkdir -p ~/p3"
+
+3) scp -P 2222 -r confs Dockerfile scripts jischoi@127.0.0.1:/home/jischoi/p3/
+
+4) SSH conection test on local(host):
    ssh -p ${SSH_PORT} <username>@127.0.0.1
 
-4) to access with key:
+5) to access with key:
    ssh-keygen -t ed25519
    ssh-copy-id -p ${SSH_PORT} <username>@127.0.0.1
+
+6) run setup.sh
+  sudo usermod -aG docker jischoi
+  reboot
+  run install.sh
+  kubectl version --client
+  k3d version
+  run create_cluster.sh
+
 
 EOF

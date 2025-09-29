@@ -21,7 +21,11 @@ echo "Username: admin"
 echo "Password: $ADMIN_PASSWORD"
 echo "-------------------------------------------------"
 
-# kubectl port-forward svc/argocd-server -n argocd 8080:443 
-echo "--- Port frorwarding... ---"
-kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8080:443
+cat <<EOF
 
+1) run kubectl apply -f ./confs/
+
+2) start port forwarding by run \
+    kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8080:443
+
+EOF
