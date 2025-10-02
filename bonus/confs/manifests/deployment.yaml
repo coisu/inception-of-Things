@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wil-playground
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wil-playground
+  template:
+    metadata:
+      labels:
+        app: wil-playground
+        version: v1
+    spec:
+      containers:
+      - name: wil-playground
+        image: wil42/playground:v1 # spp version 1
+        ports:
+        - containerPort: 8888 # app port
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: wil-playground-empty
+#   namespace: dev
+# spec:
+#   replicas: 0
+#   selector:
+#     matchLabels:
+#       app: wil-playground-empty
+#   template:
+#     metadata:
+#       labels:
+#         app: wil-playground-empty
+#     spec:
+#       containers:
+#       - name: dummy
+#         image: nginx
+#         ports:
+#         - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wil-playground-svc
+  namespace: dev
+spec:
+  selector:
+    app: wil-playground
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8888
+
+
+
