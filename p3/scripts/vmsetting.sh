@@ -5,15 +5,17 @@ VM="${VM_NAME:-p3}"
 ISO_DIR="${ISO_DIR:-$HOME/goinfre}"
 ISO="${ISO_PATH:-$HOME/goinfre/debian-13.1.0-amd64-netinst.iso}"
 
-RAM_MB="${RAM_MB:-4096}"
-CPUS="${CPUS:-2}"
-DISK_GB="${DISK_GB:-20}"
+RAM_MB="${RAM_MB:-8192}"
+CPUS="${CPUS:-4}"
+DISK_GB="${DISK_GB:-30}"
 
 # port forwarding
 SSH_PORT="${SSH_PORT:-2222}"            # host 2222 -> guest 22
 ARGO_PORT="${ARGO_PORT:-8080}"          # host 8080 -> guest 8080
 APP_PORT="${APP_PORT:-8888}"            # host 8888 -> guest 8888
-K8S_API_PORT="${K8S_API_PORT:-6443}"    # host 6443 -> guest 6443
+K8S_PORT="${K8S_API_PORT:-6443}"    # host 6443 -> guest 6443
+GITLAB_PORT="${GITLAB_API_PORT:-8081}"
+
 
 VDI="$HOME/goinfre/VirtualBoxVMs/$VM/$VM.vdi"
 
@@ -54,7 +56,8 @@ done
 VBoxManage modifyvm "$VM" --natpf1 "ssh,tcp,127.0.0.1,${SSH_PORT},,22"
 VBoxManage modifyvm "$VM" --natpf1 "argo,tcp,127.0.0.1,${ARGO_PORT},,8080"
 VBoxManage modifyvm "$VM" --natpf1 "app,tcp,127.0.0.1,${APP_PORT},,8888"
-VBoxManage modifyvm "$VM" --natpf1 "k8sapi,tcp,127.0.0.1,${K8S_API_PORT},,6443"
+VBoxManage modifyvm "$VM" --natpf1 "k8sapi,tcp,127.0.0.1,${K8S_PORT},,6443"
+VBoxManage modifyvm "$VM" --natpf1 "gitlab,tcp,127.0.0.1,${GITLAB_PORT},,8081"
 
 # storage controller
 echo "[STEP] add storage controller"
