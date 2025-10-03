@@ -7,11 +7,11 @@ spec:
   project: bonus-app
   source:
     repoURL: http://gitlab-webservice-default.gitlab.svc:8181/root/bonus-app.git
-    targetRevision: HEAD
+    targetRevision: main
     path: manifests
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: bonus
   syncPolicy:
     automated:
       prune: true

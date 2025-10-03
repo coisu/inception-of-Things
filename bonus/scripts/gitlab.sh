@@ -44,9 +44,18 @@ when it's ready to port forwarding    kubectl port-forward svc/gitlab-webservice
 Forwarding from 0.0.0.0:8081 -> 8181
 go to   http://localhost:8081 and create a new public project, check if the branch is protected
 
-git init
+git init -b main
 git remote add origin http://localhost:8081/root/{project-name}.git
-push needed files...
+git config user.name "root"
+git config user.email "email..."
+add / commit
+git push -u origin main
+
+when it went to wrong url:
+git remote set-url origin {correct url}
+git ls-remote http://localhost:8081/root/bonus-app.git
+
+
 
 check deployment...
   kubectl get pods -n dev

@@ -8,7 +8,7 @@ spec:
   sourceRepos:
     - http://gitlab-webservice-default.gitlab.svc:8181/root/bonus-app.git
   destinations:
-    - namespace: dev
+    - namespace: bonus
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'

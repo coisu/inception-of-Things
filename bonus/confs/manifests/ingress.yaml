@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: wil-playground-ingress
-  namespace: dev
+  name: bonus-playground-ingress
+  namespace: bonus
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: wil-playground-svc # deployment.yaml
+            name: bonus-playground-svc
             port:
               number: 80

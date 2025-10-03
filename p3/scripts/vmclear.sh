@@ -4,6 +4,16 @@ set -euo pipefail
 VM="${VM_NAME:-p3}"
 VDI="$HOME/goinfre/VirtualBoxVMs/$VM/$VM.vdi"
 
+
+for vm in $(VBoxManage list runningvms | awk '{print $1}' | tr -d '"'); do
+  VBoxManage controlvm "$vm" poweroff
+done
+
+for vm in $(VBoxManage list vms | awk '{print $1}' | tr -d '"'); do
+  VBoxManage unregistervm "$vm" --delete
+done
+
+
 echo "[INFO] Removing VM: $VM"
 
 if VBoxManage showvminfo "$VM" >/dev/null 2>&1; then
